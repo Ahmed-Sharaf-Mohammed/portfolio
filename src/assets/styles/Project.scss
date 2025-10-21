@@ -4,6 +4,35 @@
     padding: 5% 10%;
     text-align: left;
 }
+
+.projects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    
+    h1 {
+        margin: 0;
+    }
+}
+
+.autoplay-toggle {
+    background: #5000ca;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: background 0.3s ease;
+    
+    &:hover {
+        background: #3a0096;
+    }
+}
   
 .projects-container .projects-grid {
     display: grid;
@@ -37,6 +66,86 @@
     border-radius: 12px;
     font-size: 12px;
     font-weight: bold;
+}
+
+/* Grid Carousel Controls */
+.grid-carousel-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    
+    .project-image-container:hover & {
+        opacity: 1;
+    }
+}
+
+.grid-carousel-btn {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    z-index: 5;
+    
+    &:hover {
+        background: rgba(0, 0, 0, 0.9);
+    }
+    
+    &.prev {
+        transform: translateX(-5px);
+    }
+    
+    &.next {
+        transform: translateX(5px);
+    }
+}
+
+.grid-carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    
+    .project-image-container:hover & {
+        opacity: 1;
+    }
+}
+
+.grid-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    
+    &.active {
+        background: white;
+    }
+    
+    &:hover {
+        background: rgba(255, 255, 255, 0.7);
+    }
 }
   
 .project h2 {
@@ -244,6 +353,12 @@
         padding-right: 5%;
     }
 
+    .projects-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
     .projects-container .projects-grid {
         display: block;
     }
@@ -285,6 +400,14 @@
     .projects-container .projects-grid {
         grid-template-columns: 1fr;
         grid-gap: 30px;
+    }
+
+    .grid-carousel-controls {
+        opacity: 1; // Always show on mobile
+    }
+
+    .grid-carousel-indicators {
+        opacity: 1; // Always show on mobile
     }
 }
 

@@ -1,48 +1,116 @@
-.contact_wrapper svg {
-  font-size: 1em;
-  vertical-align: middle;
-  margin-right: 5px;
-}
-
-.contact-form {
-  padding-top: 20px;
-
-  button {
-    float: right;
-    background-color: white;
-    color: #050f0b;
+// Contact.scss
+#contact {
+  .contact_wrapper svg {
+    font-size: 1em;
+    vertical-align: middle;
+    margin-right: 5px;
   }
 
-  button:hover {
-    background-color: #5000ca;
-    color: white;
+  .contact-form {
+    padding-top: 20px;
+
+    button {
+      float: right;
+      background-color: white;
+      color: #050f0b;
+    }
+
+    button:hover {
+      background-color: #5000ca;
+      color: white;
+    }
+
+    // إجبار الأنماط على العمل
+    .MuiTextField-root {
+      // إصلاح النص في الحقول
+      .MuiInputBase-input {
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
+        background-color: #ffffff !important;
+      }
+
+      // إصلاح اللابيل
+      .MuiInputLabel-root {
+        color: #000000 !important;
+        &.Mui-focused {
+          color: #5000ca !important;
+        }
+      }
+
+      // إصلاح الحدود
+      .MuiOutlinedInput-root {
+        background-color: #ffffff !important;
+        
+        .MuiOutlinedInput-notchedOutline {
+          border-color: #000000 !important;
+        }
+
+        &:hover .MuiOutlinedInput-notchedOutline {
+          border-color: #5000ca !important;
+        }
+
+        &.Mui-focused .MuiOutlinedInput-notchedOutline {
+          border-color: #5000ca !important;
+        }
+      }
+
+      // إصلاح نص المساعدة
+      .MuiFormHelperText-root {
+        color: #000000 !important;
+      }
+    }
   }
 
-  fieldset {
-    background-color: white;
+  label {
+    font-size: 1.2rem;
+    font-family: 'DomaineDispNar-Medium', sans-serif;
+  }
+
+  .form-flex {
+    display: flex;
+    gap: 15px;
+    padding-bottom: 15px;
+  }
+
+  .form-flex .MuiFormControl-root {
+    width: 100%;
+  }
+
+  form {
+    width: 100% !important;
+  }
+
+  .body-form {
+    width: 100% !important;
+    margin-bottom: 15px !important;
+  }
+
+  // حل نهائي لمشكلة autofill
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus {
+    -webkit-text-fill-color: #000000 !important;
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
   }
 }
 
-label {
-  font-size: 1.2rem;
-  font-family: 'DomaineDispNar-Medium', sans-serif;
-}
+@media screen and (max-width: 700px) {
+  #contact .contact_wrapper {
+    display: block;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
 
-.form-flex {
-  display: flex;
-  gap: 15px;
-  padding-bottom: 15px;
-}
+  #contact .form-flex {
+    display: block;
+  }
 
-.form-flex .MuiFormControl-root {
-  width: 100%;
-}
-
-form {
-  width: 100% !important;
-}
-
-.body-form {
-  width: 100% !important;
-  margin-bottom: 15px !important;
+  #contact .form-flex .MuiFormControl-root {
+    padding-bottom: 5%;
+  }
 }

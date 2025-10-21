@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faTimes, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
+
 
 // استيراد الصور - هتحتاج تضيف الصور الفعلية بتاعتك
-import joblance1 from '../assets/images/mock03.png';
-import joblance2 from '../assets/images/mock03.png';
-import joblance3 from '../assets/images/mock03.png';
+import joblance1 from '../assets/images/Joblance.png';
+import joblance2 from '../assets/images/Joblance1.png';
+import joblance3 from '../assets/images/Joblance2.png';
+import joblance4 from '../assets/images/Joblance3.png';
 
-import girljump1 from '../assets/images/mock03.png';
-import girljump2 from '../assets/images/mock03.png';
+import girljump1 from '../assets/images/Joblance.png';
+import girljump2 from '../assets/images/Joblance.png';
 
-import tmirs1 from '../assets/images/mock03.png';
-import tmirs2 from '../assets/images/mock03.png';
+import tmirs1 from '../assets/images/Joblance.png';
+import tmirs2 from '../assets/images/Joblance.png';
 
-import npuzzle1 from '../assets/images/mock03.png';
-import eshop1 from '../assets/images/mock03.png';
-import dataprojects1 from '../assets/images/mock03.png';
+import npuzzle1 from '../assets/images/Joblance.png';
+import eshop1 from '../assets/images/Joblance.png';
+import dataprojects1 from '../assets/images/Joblance.png';
 import '../assets/styles/Project.scss';
+
 
 // تعريف الـ Interface للمشروع
 interface ProjectType {
@@ -32,13 +35,17 @@ interface ProjectType {
 function Project() {
     const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null);
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+    const [autoPlayEnabled, setAutoPlayEnabled] = useState<boolean>(true);
+    const [gridImageIndices, setGridImageIndices] = useState<{ [key: number]: number }>({});
+    
+    const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
     const projects: ProjectType[] = [
         {
             id: 1,
             title: "Job Lance - Career Platform",
             description: "An innovative career development platform with diverse job listings and user-friendly interface. Built as graduation project with Excellent grade (97/100).",
-            images: [joblance1, joblance2, joblance3],
+            images: [joblance1, joblance2, joblance3, joblance4],
             technologies: ["Python", "Django", "Data Analysis", "Machine Learning"],
             details: "Job Lance is a comprehensive career platform that connects job seekers with employers. Features include intelligent job matching, resume builder, and a dedicated section for skilled craftsmen."
         },
@@ -84,6 +91,51 @@ function Project() {
         }
     ];
 
+    // Auto-play for grid images - FIXED VERSION
+    useEffect(() => {
+        // تنظيف أي interval قديم
+        if (autoPlayRef.current) {
+            clearInterval(autoPlayRef.current);
+        }
+
+        if (autoPlayEnabled) {
+            autoPlayRef.current = setInterval(() => {
+                setGridImageIndices(prev => {
+                    const newIndices = { ...prev };
+                    
+                    // تحديث كل مشروع له أكثر من صورة
+                    projects.forEach(project => {
+                        if (project.images.length > 1) {
+                            const currentIndex = prev[project.id] || 0;
+                            newIndices[project.id] = (currentIndex + 1) % project.images.length;
+                        }
+                    });
+                    
+                    return newIndices;
+                });
+            }, 3000); // تغيير الصورة كل 3 ثواني
+        }
+
+        return () => {
+            if (autoPlayRef.current) {
+                clearInterval(autoPlayRef.current);
+            }
+        };
+    }, [autoPlayEnabled]); // فقط autoPlayEnabled في dependency array
+
+    // تهيئة الحالة الأولية
+    useEffect(() => {
+        const initialIndices: { [key: number]: number } = {};
+        projects.forEach(project => {
+            initialIndices[project.id] = 0;
+        });
+        setGridImageIndices(initialIndices);
+    }, []);
+
+    const toggleAutoPlay = (): void => {
+        setAutoPlayEnabled(!autoPlayEnabled);
+    };
+
     const openModal = (project: ProjectType): void => {
         setSelectedProject(project);
         setCurrentImageIndex(0);
@@ -116,34 +168,98 @@ function Project() {
         setCurrentImageIndex(index);
     };
 
+    const nextGridImage = (projectId: number, event: React.MouseEvent): void => {
+        event.stopPropagation();
+        setGridImageIndices(prev => ({
+            ...prev,
+            [projectId]: ((prev[projectId] || 0) + 1) % projects.find(p => p.id === projectId)!.images.length
+        }));
+    };
+
+    const prevGridImage = (projectId: number, event: React.MouseEvent): void => {
+        event.stopPropagation();
+        const project = projects.find(p => p.id === projectId);
+        if (project) {
+            setGridImageIndices(prev => ({
+                ...prev,
+                [projectId]: prev[projectId] === 0 ? project.images.length - 1 : (prev[projectId] || 0) - 1
+            }));
+        }
+    };
+
     return (
         <div className="projects-container" id="projects">
-            <h1>Personal Projects</h1>
+            <div className="projects-header">
+                <h1>Personal Projects</h1>
+                {/*<button className="autoplay-toggle" onClick={toggleAutoPlay}>
+                    <FontAwesomeIcon icon={autoPlayEnabled ? faPause : faPlay} />
+                    <span>{autoPlayEnabled ? 'إيقاف التشغيل التلقائي' : 'تشغيل التلقائي'}</span>
+                </button>*/}
+            </div>
+            
             <div className="projects-grid">
-                {projects.map((project: ProjectType) => (
-                    <div key={project.id} className="project" onClick={() => openModal(project)}>
-                        <div className="project-image-container">
-                            <img 
-                                src={project.images[0]} 
-                                className="zoom" 
-                                alt={project.title} 
-                                width="100%"
-                            />
-                            {project.images.length > 1 && (
-                                <div className="image-counter">
-                                    <span>{project.images.length} صور</span>
-                                </div>
-                            )}
+                {projects.map((project: ProjectType) => {
+                    const currentIndex = gridImageIndices[project.id] || 0;
+                    
+                    return (
+                        <div key={project.id} className="project" onClick={() => openModal(project)}>
+                            <div className="project-image-container">
+                                <img 
+                                    src={project.images[currentIndex]} 
+                                    className="zoom" 
+                                    alt={project.title} 
+                                    width="100%"
+                                />
+                                
+                                {project.images.length > 1 && (
+                                    <>
+                                        <div className="image-counter">
+                                            <span>{currentIndex + 1} / {project.images.length}</span>
+                                        </div>
+                                        
+                                        <div className="grid-carousel-controls">
+                                            <button 
+                                                className="grid-carousel-btn prev" 
+                                                onClick={(e) => prevGridImage(project.id, e)}
+                                            >
+                                                <FontAwesomeIcon icon={faChevronLeft} />
+                                            </button>
+                                            <button 
+                                                className="grid-carousel-btn next" 
+                                                onClick={(e) => nextGridImage(project.id, e)}
+                                            >
+                                                <FontAwesomeIcon icon={faChevronRight} />
+                                            </button>
+                                        </div>
+
+                                        <div className="grid-carousel-indicators">
+                                            {project.images.map((_, index: number) => (
+                                                <button
+                                                    key={index}
+                                                    className={`grid-indicator ${index === currentIndex ? 'active' : ''}`}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setGridImageIndices(prev => ({
+                                                            ...prev,
+                                                            [project.id]: index
+                                                        }));
+                                                    }}
+                                                />
+                                            ))}
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                            <h2>{project.title}</h2>
+                            <p>{project.description}</p>
+                            <div className="tech-tags">
+                                {project.technologies.map((tech: string, index: number) => (
+                                    <span key={index} className="tech-tag">{tech}</span>
+                                ))}
+                            </div>
                         </div>
-                        <h2>{project.title}</h2>
-                        <p>{project.description}</p>
-                        <div className="tech-tags">
-                            {project.technologies.map((tech: string, index: number) => (
-                                <span key={index} className="tech-tag">{tech}</span>
-                            ))}
-                        </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
 
             {/* Modal */}
