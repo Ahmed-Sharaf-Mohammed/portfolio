@@ -2,6 +2,51 @@
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+
+.profile-img {
+  width: 100%;
+  max-width: 150px;   
+  aspect-ratio: 1 / 1; 
+  border-radius: 50%;  
+  object-fit: cover;   
+  display: block;
+  margin: 0 auto;
+  margin-top: -20px;   
+}
+
+
+@media screen and (min-width: 992px) {
+  .profile-img {
+    max-width: 180px;
+    margin-top: -30px;  
+  }
+}
+
+
+@media screen and (min-width: 1200px) {
+  .profile-img {
+    max-width: 200px;
+    margin-top: -30px;
+  }
+}
+
+
+@media screen and (min-width: 1400px) {
+  .profile-img {
+    max-width: 230px;
+    margin-top: -30px;
+  }
+}
+
+
+.about-section .image-wrapper {
+    z-index: 2;
+    margin-top: -30px;   
+
+    position: relative;
+    top: -30px;   
+}
+
 .about-section {
     display: flex;
     gap: 30px;
@@ -16,6 +61,7 @@
     background-attachment: fixed;
     background-position: center;
 }
+
 
 .about-section .content {
     text-align: left;
@@ -49,13 +95,7 @@
     }
 }
 
-.about-section .image-wrapper {
-    z-index: 2;
-    img {
-        width: 150px;
-        border-radius: 50%;
-    }
-}
+
 
 .about p {
     text-align: center;
