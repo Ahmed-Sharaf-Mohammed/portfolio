@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight, faTimes, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faTimes, faPlay } from '@fortawesome/free-solid-svg-icons';
+import '../assets/styles/Project.scss';
 
-
-// استيراد الصور - هتحتاج تضيف الصور الفعلية بتاعتك
+// استيراد الصور
 import joblance1 from '../assets/images/Joblance.png';
 import joblance2 from '../assets/images/Joblance1.png';
 import joblance3 from '../assets/images/Joblance2.png';
@@ -18,25 +18,39 @@ import tmirs2 from '../assets/images/Joblance.png';
 import npuzzle1 from '../assets/images/Joblance.png';
 import eshop1 from '../assets/images/Joblance.png';
 import dataprojects1 from '../assets/images/Joblance.png';
-import '../assets/styles/Project.scss';
+
+// تعريف الفيديوهات بنفس طريقة الصور
+const joblancev1 = "https://www.youtube.com/embed/gU6LP4_vnvc?si=vSjRfoxHR_6-9KWR";
+const girljumpv1 = "https://www.youtube.com/embed/BaBA67FM1lQ?si=bVqSf8GUaMDxfE4j";
+/*const tmirsv1 = "https://youtu.be/XYZ12345678";
+const npuzzlev1 = "https://youtu.be/ABC98765432";
+const eshopv1 = "https://youtu.be/DEF45678901";
+const dataprojectsv1 = "https://youtu.be/GHI23456789";
+*/
 
 
-// تعريف الـ Interface للمشروع
+// تعريف الـ Interface للمشروع مع دعم الفيديوهات
 interface ProjectType {
     id: number;
     title: string;
     description: string;
     images: string[];
+    videos?: string[]; // روابط يوتيوب
     technologies: string[];
     details: string;
 }
 
+// نوع للوسائط (صور أو فيديوهات)
+type MediaItem = {
+    type: 'image' | 'video';
+    url: string;
+};
 
 function Project() {
     const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null);
-    const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+    const [currentMediaIndex, setCurrentMediaIndex] = useState<number>(0);
     const [autoPlayEnabled, setAutoPlayEnabled] = useState<boolean>(true);
-    const [gridImageIndices, setGridImageIndices] = useState<{ [key: number]: number }>({});
+    const [gridMediaIndices, setGridMediaIndices] = useState<{ [key: number]: number }>({});
     
     const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -46,6 +60,7 @@ function Project() {
             title: "Job Lance - Career Platform",
             description: "An innovative career development platform with diverse job listings and user-friendly interface. Built as graduation project with Excellent grade (97/100).",
             images: [joblance1, joblance2, joblance3, joblance4],
+            videos: [joblancev1],
             technologies: ["Python", "Django", "Data Analysis", "Machine Learning"],
             details: "Job Lance is a comprehensive career platform that connects job seekers with employers. Features include intelligent job matching, resume builder, and a dedicated section for skilled craftsmen."
         },
@@ -54,6 +69,7 @@ function Project() {
             title: "Girl Jump - 3D Game",
             description: "A Unity-based 3D game with female protagonist navigating dynamic environments. Developed with C# and Unity game engine.",
             images: [girljump1, girljump2],
+            videos: [girljumpv1],
             technologies: ["C#", "Unity", "3D Game Development"],
             details: "An immersive 3D platformer game featuring a female protagonist. The game includes challenging levels, dynamic obstacles, and smooth character controls."
         },
@@ -62,6 +78,7 @@ function Project() {
             title: "TMIRS - Text Mining Toolkit",
             description: "Python-based system for processing textual data, performing tasks like tokenization and computing TF-IDF for information retrieval.",
             images: [tmirs1, tmirs2],
+            videos: [],
             technologies: ["Python", "NLP", "Text Mining", "TF-IDF"],
             details: "A comprehensive text mining and information retrieval system that processes large volumes of text data. Implements advanced NLP techniques for text analysis and similarity computation."
         },
@@ -70,6 +87,7 @@ function Project() {
             title: "N-Puzzle Solver",
             description: "Python program for solving n-puzzle problems using Manhattan distance heuristic and advanced algorithms.",
             images: [npuzzle1],
+            videos: [],
             technologies: ["Python", "Algorithms", "AI", "Problem Solving"],
             details: "An intelligent puzzle solver that uses heuristic search algorithms to find optimal solutions for n-puzzle problems. Implements A* search with Manhattan distance."
         },
@@ -78,6 +96,7 @@ function Project() {
             title: "E-Shop - Online Store",
             description: "Online clothing store built with PHP, featuring seamless shopping experience with shopping cart functionality.",
             images: [eshop1],
+            videos: [],
             technologies: ["PHP", "HTML/CSS", "JavaScript", "MySQL"],
             details: "A fully functional e-commerce website for clothing retail. Includes user authentication, product catalog, shopping cart, and order management system."
         },
@@ -86,12 +105,30 @@ function Project() {
             title: "Data Analysis Projects",
             description: "Collection of data analysis projects using Power BI, Alteryx, SSIS, and MS Project for data transformation, visualization, and modeling.",
             images: [dataprojects1],
+            videos: [],
             technologies: ["Power BI", "Alteryx", "SSIS", "Data Visualization"],
             details: "Multiple data analysis projects focusing on different domains including finance, e-commerce, and education. Transforms raw data into actionable insights through advanced visualization techniques."
         }
     ];
 
-    // Auto-play for grid images - FIXED VERSION
+    // دالة لدمج الصور والفيديوهات في مصفوفة واحدة
+    const getProjectMedia = (project: ProjectType): MediaItem[] => {
+        const media: MediaItem[] = [];
+        
+        // إضافة الصور أولاً
+        project.images.forEach(image => {
+            media.push({ type: 'image', url: image });
+        });
+        
+        // إضافة الفيديوهات إذا وجدت
+        project.videos?.forEach(video => {
+            media.push({ type: 'video', url: video });
+        });
+        
+        return media;
+    };
+
+    // Auto-play for grid media - FIXED VERSION
     useEffect(() => {
         // تنظيف أي interval قديم
         if (autoPlayRef.current) {
@@ -100,20 +137,21 @@ function Project() {
 
         if (autoPlayEnabled) {
             autoPlayRef.current = setInterval(() => {
-                setGridImageIndices(prev => {
+                setGridMediaIndices(prev => {
                     const newIndices = { ...prev };
                     
-                    // تحديث كل مشروع له أكثر من صورة
+                    // تحديث كل مشروع له أكثر من وسائط
                     projects.forEach(project => {
-                        if (project.images.length > 1) {
+                        const projectMedia = getProjectMedia(project);
+                        if (projectMedia.length > 1) {
                             const currentIndex = prev[project.id] || 0;
-                            newIndices[project.id] = (currentIndex + 1) % project.images.length;
+                            newIndices[project.id] = (currentIndex + 1) % projectMedia.length;
                         }
                     });
                     
                     return newIndices;
                 });
-            }, 3000); // تغيير الصورة كل 3 ثواني
+            }, 3000); // تغيير الوسائط كل 3 ثواني
         }
 
         return () => {
@@ -121,7 +159,7 @@ function Project() {
                 clearInterval(autoPlayRef.current);
             }
         };
-    }, [autoPlayEnabled]); // فقط autoPlayEnabled في dependency array
+    }, [autoPlayEnabled]);
 
     // تهيئة الحالة الأولية
     useEffect(() => {
@@ -129,7 +167,7 @@ function Project() {
         projects.forEach(project => {
             initialIndices[project.id] = 0;
         });
-        setGridImageIndices(initialIndices);
+        setGridMediaIndices(initialIndices);
     }, []);
 
     const toggleAutoPlay = (): void => {
@@ -138,53 +176,127 @@ function Project() {
 
     const openModal = (project: ProjectType): void => {
         setSelectedProject(project);
-        setCurrentImageIndex(0);
+        setCurrentMediaIndex(0);
         document.body.style.overflow = 'hidden';
     };
 
     const closeModal = (): void => {
         setSelectedProject(null);
-        setCurrentImageIndex(0);
+        setCurrentMediaIndex(0);
         document.body.style.overflow = 'auto';
     };
 
-    const nextImage = (): void => {
+    const nextMedia = (): void => {
         if (selectedProject) {
-            setCurrentImageIndex((prevIndex: number) => 
-                (prevIndex + 1) % selectedProject.images.length
+            const projectMedia = getProjectMedia(selectedProject);
+            setCurrentMediaIndex((prevIndex: number) => 
+                (prevIndex + 1) % projectMedia.length
             );
         }
     };
 
-    const prevImage = (): void => {
+    const prevMedia = (): void => {
         if (selectedProject) {
-            setCurrentImageIndex((prevIndex: number) => 
-                prevIndex === 0 ? selectedProject.images.length - 1 : prevIndex - 1
+            const projectMedia = getProjectMedia(selectedProject);
+            setCurrentMediaIndex((prevIndex: number) => 
+                prevIndex === 0 ? projectMedia.length - 1 : prevIndex - 1
             );
         }
     };
 
-    const goToImage = (index: number): void => {
-        setCurrentImageIndex(index);
+    const goToMedia = (index: number): void => {
+        setCurrentMediaIndex(index);
     };
 
-    const nextGridImage = (projectId: number, event: React.MouseEvent): void => {
-        event.stopPropagation();
-        setGridImageIndices(prev => ({
-            ...prev,
-            [projectId]: ((prev[projectId] || 0) + 1) % projects.find(p => p.id === projectId)!.images.length
-        }));
-    };
-
-    const prevGridImage = (projectId: number, event: React.MouseEvent): void => {
+    const nextGridMedia = (projectId: number, event: React.MouseEvent): void => {
         event.stopPropagation();
         const project = projects.find(p => p.id === projectId);
         if (project) {
-            setGridImageIndices(prev => ({
+            const projectMedia = getProjectMedia(project);
+            setGridMediaIndices(prev => ({
                 ...prev,
-                [projectId]: prev[projectId] === 0 ? project.images.length - 1 : (prev[projectId] || 0) - 1
+                [projectId]: ((prev[projectId] || 0) + 1) % projectMedia.length
             }));
         }
+    };
+
+    const prevGridMedia = (projectId: number, event: React.MouseEvent): void => {
+        event.stopPropagation();
+        const project = projects.find(p => p.id === projectId);
+        if (project) {
+            const projectMedia = getProjectMedia(project);
+            setGridMediaIndices(prev => ({
+                ...prev,
+                [projectId]: prev[projectId] === 0 ? projectMedia.length - 1 : (prev[projectId] || 0) - 1
+            }));
+        }
+    };
+
+    // دالة لعرض الوسائط في الـ Grid
+    const renderGridMedia = (project: ProjectType, currentIndex: number) => {
+        const projectMedia = getProjectMedia(project);
+        const currentMedia = projectMedia[currentIndex];
+
+        if (currentMedia.type === 'video') {
+            return (
+                <div className="video-container">
+                    <div className="video-thumbnail">
+                        <div className="play-icon">
+                            <FontAwesomeIcon icon={faPlay} size="2x" />
+                        </div>
+                        <img 
+                            src={`https://img.youtube.com/vi/${getYouTubeId(currentMedia.url)}/hqdefault.jpg`}
+                            alt={`${project.title} video thumbnail`}
+                            className="zoom"
+                        />
+                        <div className="video-badge">Video</div>
+                    </div>
+                </div>
+            );
+        }
+
+        return (
+            <img 
+                src={currentMedia.url} 
+                className="zoom" 
+                alt={project.title} 
+                width="100%"
+            />
+        );
+    };
+
+    // دالة لعرض الوسائط في الـ Modal
+    const renderModalMedia = (project: ProjectType, currentIndex: number) => {
+        const projectMedia = getProjectMedia(project);
+        const currentMedia = projectMedia[currentIndex];
+
+        if (currentMedia.type === 'video') {
+            return (
+                <div className="video-container">
+                    <iframe
+                        src={currentMedia.url}
+                        title={`${project.title} video`}
+                        className="carousel-video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    />
+                </div>
+            );
+        }
+
+        return (
+            <img 
+                src={currentMedia.url} 
+                alt={`${project.title} - ${currentIndex + 1}`}
+                className="carousel-image"
+            />
+        );
+    };
+
+    // دالة لاستخراج ID من رابط اليوتيوب
+    const getYouTubeId = (url: string): string => {
+        const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+        return match ? match[1] : '';
     };
 
     return (
@@ -199,51 +311,48 @@ function Project() {
             
             <div className="projects-grid">
                 {projects.map((project: ProjectType) => {
-                    const currentIndex = gridImageIndices[project.id] || 0;
+                    const currentIndex = gridMediaIndices[project.id] || 0;
+                    const projectMedia = getProjectMedia(project);
                     
                     return (
                         <div key={project.id} className="project" onClick={() => openModal(project)}>
                             <div className="project-image-container">
-                                <img 
-                                    src={project.images[currentIndex]} 
-                                    className="zoom" 
-                                    alt={project.title} 
-                                    width="100%"
-                                />
+                                {renderGridMedia(project, currentIndex)}
                                 
-                                {project.images.length > 1 && (
+                                {projectMedia.length > 1 && (
                                     <>
                                         <div className="image-counter">
-                                            <span>{currentIndex + 1} / {project.images.length}</span>
+                                            <span>{currentIndex + 1} / {projectMedia.length}</span>
                                         </div>
                                         
                                         <div className="grid-carousel-controls">
                                             <button 
                                                 className="grid-carousel-btn prev" 
-                                                onClick={(e) => prevGridImage(project.id, e)}
+                                                onClick={(e) => prevGridMedia(project.id, e)}
                                             >
                                                 <FontAwesomeIcon icon={faChevronLeft} />
                                             </button>
                                             <button 
                                                 className="grid-carousel-btn next" 
-                                                onClick={(e) => nextGridImage(project.id, e)}
+                                                onClick={(e) => nextGridMedia(project.id, e)}
                                             >
                                                 <FontAwesomeIcon icon={faChevronRight} />
                                             </button>
                                         </div>
 
                                         <div className="grid-carousel-indicators">
-                                            {project.images.map((_, index: number) => (
+                                            {projectMedia.map((media, index: number) => (
                                                 <button
                                                     key={index}
-                                                    className={`grid-indicator ${index === currentIndex ? 'active' : ''}`}
+                                                    className={`grid-indicator ${index === currentIndex ? 'active' : ''} ${media.type === 'video' ? 'video-indicator' : ''}`}
                                                     onClick={(e) => {
                                                         e.stopPropagation();
-                                                        setGridImageIndices(prev => ({
+                                                        setGridMediaIndices(prev => ({
                                                             ...prev,
                                                             [project.id]: index
                                                         }));
                                                     }}
+                                                    title={media.type === 'video' ? 'Video' : 'Image'}
                                                 />
                                             ))}
                                         </div>
@@ -272,27 +381,24 @@ function Project() {
                         
                         <div className="modal-carousel">
                             <div className="carousel-container">
-                                <img 
-                                    src={selectedProject.images[currentImageIndex]} 
-                                    alt={`${selectedProject.title} - ${currentImageIndex + 1}`}
-                                    className="carousel-image"
-                                />
+                                {renderModalMedia(selectedProject, currentMediaIndex)}
                                 
-                                {selectedProject.images.length > 1 && (
+                                {getProjectMedia(selectedProject).length > 1 && (
                                     <>
-                                        <button className="carousel-btn prev" onClick={prevImage}>
+                                        <button className="carousel-btn prev" onClick={prevMedia}>
                                             <FontAwesomeIcon icon={faChevronLeft} />
                                         </button>
-                                        <button className="carousel-btn next" onClick={nextImage}>
+                                        <button className="carousel-btn next" onClick={nextMedia}>
                                             <FontAwesomeIcon icon={faChevronRight} />
                                         </button>
                                         
                                         <div className="carousel-indicators">
-                                            {selectedProject.images.map((_: string, index: number) => (
+                                            {getProjectMedia(selectedProject).map((media, index: number) => (
                                                 <button
                                                     key={index}
-                                                    className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
-                                                    onClick={() => goToImage(index)}
+                                                    className={`indicator ${index === currentMediaIndex ? 'active' : ''} ${media.type === 'video' ? 'video-indicator' : ''}`}
+                                                    onClick={() => goToMedia(index)}
+                                                    title={media.type === 'video' ? 'Video' : 'Image'}
                                                 />
                                             ))}
                                         </div>

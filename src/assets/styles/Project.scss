@@ -187,6 +187,68 @@
     font-weight: 500;
 }
 
+/* أنماط الفيديوهات */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    
+    &:hover img {
+        transform: scale(1.05);
+    }
+}
+
+.play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(80, 0, 202, 0.8);
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: background 0.3s ease;
+    
+    .video-thumbnail:hover & {
+        background: rgba(80, 0, 202, 1);
+    }
+}
+
+.video-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ff0000;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 2;
+}
+
 /* Modal Styles */
 .modal-overlay {
     position: fixed;
@@ -255,6 +317,14 @@
     background: #f8f9fa;
 }
 
+// فيديو الـ Modal
+.carousel-video {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #000;
+}
+
 .carousel-btn {
     position: absolute;
     top: 50%;
@@ -313,6 +383,19 @@
     }
 }
 
+// مؤشرات الفيديوهات
+.video-indicator {
+    border-color: #ff0000 !important;
+    
+    &.active {
+        background: #ff0000 !important;
+    }
+    
+    &:hover {
+        background: rgba(255, 0, 0, 0.7) !important;
+    }
+}
+
 /* Modal Details */
 .modal-details {
     padding: 30px;
@@ -342,6 +425,15 @@
         border-radius: 20px;
         font-size: 14px;
         font-weight: 500;
+    }
+}
+
+/* تحسينات للـ Modal مع الفيديوهات */
+.modal-carousel .video-container {
+    height: 400px;
+    
+    iframe {
+        border-radius: 15px 15px 0 0;
     }
 }
 
@@ -408,6 +500,24 @@
 
     .grid-carousel-indicators {
         opacity: 1; // Always show on mobile
+    }
+
+    // Responsive للفيديوهات
+    .video-container {
+        height: 200px;
+    }
+    
+    .play-icon {
+        width: 50px;
+        height: 50px;
+        
+        svg {
+            font-size: 1.5em;
+        }
+    }
+    
+    .modal-carousel .video-container {
+        height: 250px;
     }
 }
 
