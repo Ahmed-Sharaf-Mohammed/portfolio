@@ -68,6 +68,7 @@ function Project() {
             images: [Iraq1, Iraq],
             technologies: ["Python", "Django", "SQL Server 2022", "Machine Learning", "scraping", "Power BI"],
             details: "I led a comprehensive business intelligence project analyzing over 400,000 Iraqi business reviews and ratings to provide actionable insights for entrepreneurs, investors, and policymakers. The project involved data collection by scraping business information from Google Maps, followed by data cleaning and integration of 20+ Excel datasets into a centralized SQL Server database. Using Python and SQL, I performed advanced analysis to uncover market trends, sector performance, competitive landscapes, and customer satisfaction across 15+ governorates and 20+ business sectors. Insights were visualized through interactive dashboards in Power BI and Dash, highlighting geographic hotspots, underserved sectors, digital gaps, and high-growth opportunities. Additionally, a detailed Data Story report summarized findings and offered data-driven recommendations for market entry strategies, investment decisions, and operational improvements, effectively transforming raw business data into strategic intelligence for stakeholders.",
+            projectLink: "https://egyptianemperors.pythonanywhere.com/", 
             githubLink: "https://github.com/Ahmed-Sharaf-Mohammed/Iraq-google-maps-scraping-2024"
         },
 
