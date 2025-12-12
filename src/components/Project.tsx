@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight, faTimes, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faTimes, faPause, faPlay, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import '../assets/styles/Project.scss';
 
 // استيراد الصور
@@ -9,15 +10,12 @@ import joblance2 from '../assets/images/Joblance1.png';
 import joblance3 from '../assets/images/Joblance2.png';
 import joblance4 from '../assets/images/Joblance3.png';
 
-import girljump1 from '../assets/images/Joblance.png';
-import girljump2 from '../assets/images/Joblance.png';
+import girljump1 from '../assets/images/girljumb.png';
+import girljump2 from '../assets/images/girljumb1.png';
 
-import tmirs1 from '../assets/images/Joblance.png';
-import tmirs2 from '../assets/images/Joblance.png';
+import tmirs1 from '../assets/images/tmirs.png';
 
-import npuzzle1 from '../assets/images/Joblance.png';
-import eshop1 from '../assets/images/Joblance.png';
-import dataprojects1 from '../assets/images/Joblance.png';
+import npuzzle1 from '../assets/images/npuzzle.png';
 
 // تعريف الفيديوهات بنفس طريقة الصور
 const joblancev1 = "https://www.youtube.com/embed/gU6LP4_vnvc?si=vSjRfoxHR_6-9KWR";
@@ -29,15 +27,16 @@ const dataprojectsv1 = "https://youtu.be/GHI23456789";
 */
 
 
-// تعريف الـ Interface للمشروع مع دعم الفيديوهات
 interface ProjectType {
     id: number;
     title: string;
     description: string;
     images: string[];
-    videos?: string[]; // روابط يوتيوب
+    videos?: string[]; 
     technologies: string[];
     details: string;
+    projectLink?: string; 
+    githubLink?: string; 
 }
 
 // نوع للوسائط (صور أو فيديوهات)
@@ -62,7 +61,9 @@ function Project() {
             images: [joblance1, joblance2, joblance3, joblance4],
             videos: [joblancev1],
             technologies: ["Python", "Django", "Data Analysis", "Machine Learning"],
-            details: "Job Lance is a comprehensive career platform that connects job seekers with employers. Features include intelligent job matching, resume builder, and a dedicated section for skilled craftsmen."
+            details: "Job Lance is a comprehensive career platform that connects job seekers with employers. Features include intelligent job matching, resume builder, and a dedicated section for skilled craftsmen.",
+            //projectLink: "https://joblance.example.com", 
+            githubLink: "https://github.com/Ahmed-Sharaf-Mohammed/Joblance"
         },
         {
             id: 2,
@@ -71,16 +72,19 @@ function Project() {
             images: [girljump1, girljump2],
             videos: [girljumpv1],
             technologies: ["C#", "Unity", "3D Game Development"],
-            details: "An immersive 3D platformer game featuring a female protagonist. The game includes challenging levels, dynamic obstacles, and smooth character controls."
+            details: "An immersive 3D platformer game featuring a female protagonist. The game includes challenging levels, dynamic obstacles, and smooth character controls.",
+            githubLink: "https://github.com/Ahmed-Sharaf-Mohammed/Girl-jump_Unity-3D-Game"
+
         },
         {
             id: 3,
             title: "TMIRS - Text Mining Toolkit",
             description: "Python-based system for processing textual data, performing tasks like tokenization and computing TF-IDF for information retrieval.",
-            images: [tmirs1, tmirs2],
+            images: [tmirs1],
             videos: [],
             technologies: ["Python", "NLP", "Text Mining", "TF-IDF"],
-            details: "A comprehensive text mining and information retrieval system that processes large volumes of text data. Implements advanced NLP techniques for text analysis and similarity computation."
+            details: "A comprehensive text mining and information retrieval system that processes large volumes of text data. Implements advanced NLP techniques for text analysis and similarity computation.",
+            githubLink: "https://github.com/Ahmed-Sharaf-Mohammed/Text-Mining-and-Information-Retrieval-System"
         },
         {
             id: 4,
@@ -89,25 +93,29 @@ function Project() {
             images: [npuzzle1],
             videos: [],
             technologies: ["Python", "Algorithms", "AI", "Problem Solving"],
-            details: "An intelligent puzzle solver that uses heuristic search algorithms to find optimal solutions for n-puzzle problems. Implements A* search with Manhattan distance."
+            details: "An intelligent puzzle solver that uses heuristic search algorithms to find optimal solutions for n-puzzle problems. Implements A* search with Manhattan distance.",
+            githubLink: "https://github.com/Ahmed-Sharaf-Mohammed/N-Puzzel_Manhattan-Distances"
+
         },
         {
             id: 5,
             title: "E-Shop - Online Store",
             description: "Online clothing store built with PHP, featuring seamless shopping experience with shopping cart functionality.",
-            images: [eshop1],
+            images: [npuzzle1],
             videos: [],
             technologies: ["PHP", "HTML/CSS", "JavaScript", "MySQL"],
-            details: "A fully functional e-commerce website for clothing retail. Includes user authentication, product catalog, shopping cart, and order management system."
+            details: "A fully functional e-commerce website for clothing retail. Includes user authentication, product catalog, shopping cart, and order management system.",
+            githubLink: "https://github.com/Ahmed-Sharaf-Mohammed/PHP_Eshop"
         },
         {
             id: 6,
             title: "Data Analysis Projects",
             description: "Collection of data analysis projects using Power BI, Alteryx, SSIS, and MS Project for data transformation, visualization, and modeling.",
-            images: [dataprojects1],
+            images: [npuzzle1],
             videos: [],
             technologies: ["Power BI", "Alteryx", "SSIS", "Data Visualization"],
-            details: "Multiple data analysis projects focusing on different domains including finance, e-commerce, and education. Transforms raw data into actionable insights through advanced visualization techniques."
+            details: "Multiple data analysis projects focusing on different domains including finance, e-commerce, and education. Transforms raw data into actionable insights through advanced visualization techniques.",
+            githubLink: "https://github.com/Ahmed-Sharaf-Mohammed/data-projects"
         }
     ];
 
@@ -299,6 +307,12 @@ function Project() {
         return match ? match[1] : '';
     };
 
+    // دالة لفتح رابط المشروع في نافذة جديدة
+    const openProjectLink = (url: string, event: React.MouseEvent) => {
+        event.stopPropagation();
+        window.open(url, '_blank', 'noopener,noreferrer');
+    };
+
     return (
         <div className="projects-container" id="projects">
             <div className="projects-header">
@@ -319,6 +333,30 @@ function Project() {
                             <div className="project-image-container">
                                 {renderGridMedia(project, currentIndex)}
                                 
+                                {/* رابط المشروع على الصورة */}
+                                {(project.projectLink || project.githubLink) && (
+                                    <div className="project-links-overlay">
+                                        {project.projectLink && (
+                                            <button 
+                                                className="project-link-icon"
+                                                onClick={(e) => openProjectLink(project.projectLink!, e)}
+                                                title="Visit Project"
+                                            >
+                                                <FontAwesomeIcon icon={faExternalLinkAlt} />
+                                            </button>
+                                        )}
+                                        {project.githubLink && (
+                                            <button 
+                                                className="github-link-icon"
+                                                onClick={(e) => openProjectLink(project.githubLink!, e)}
+                                                title="View on GitHub"
+                                            >
+                                                <FontAwesomeIcon icon={faGithub} />
+                                            </button>
+                                        )}
+                                    </div>
+                                )}
+
                                 {projectMedia.length > 1 && (
                                     <>
                                         <div className="image-counter">
@@ -365,6 +403,25 @@ function Project() {
                                 {project.technologies.map((tech: string, index: number) => (
                                     <span key={index} className="tech-tag">{tech}</span>
                                 ))}
+
+                                {/* أيقونات الروابط في تاج */}
+                                {project.projectLink && (
+                                    <span 
+                                        className="tech-tag link-tag"
+                                        onClick={(e) => openProjectLink(project.projectLink!, e)}
+                                    >
+                                        <FontAwesomeIcon icon={faExternalLinkAlt} /> Visit Site
+                                    </span>
+                                )}
+                                {project.githubLink && (
+                                    <span 
+                                        className="tech-tag github-tag"
+                                        onClick={(e) => openProjectLink(project.githubLink!, e)}
+                                    >
+                                        <FontAwesomeIcon icon={faGithub} /> GitHub
+                                    </span>
+                                )}
+
                             </div>
                         </div>
                     );
@@ -414,6 +471,29 @@ function Project() {
                                 {selectedProject.technologies.map((tech: string, index: number) => (
                                     <span key={index} className="tech-tag">{tech}</span>
                                 ))}
+                            </div>
+                            {/* أزرار الروابط في المودال */}
+                            <div className="modal-project-links">
+                                {selectedProject.projectLink && (
+                                    <a 
+                                        href={selectedProject.projectLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="project-link-btn"
+                                    >
+                                        <FontAwesomeIcon icon={faExternalLinkAlt} /> Visit Project
+                                    </a>
+                                )}
+                                {selectedProject.githubLink && (
+                                    <a 
+                                        href={selectedProject.githubLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="github-link-btn"
+                                    >
+                                        <FontAwesomeIcon icon={faGithub} /> View on GitHub
+                                    </a>
+                                )}
                             </div>
                         </div>
                     </div>

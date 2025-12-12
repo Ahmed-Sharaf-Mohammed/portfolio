@@ -526,3 +526,143 @@
         grid-template-columns: 1fr;
     }
 }
+
+
+
+/* روابط المشروع */
+.project-links-overlay {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 8px;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    
+    .project-image-container:hover & {
+        opacity: 1;
+    }
+}
+
+.project-link-icon,
+.github-link-icon {
+    background: rgba(80, 0, 202, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        background: rgba(80, 0, 202, 1);
+        transform: scale(1.1);
+    }
+}
+
+.github-link-icon {
+    background: rgba(36, 41, 46, 0.8);
+    
+    &:hover {
+        background: rgba(36, 41, 46, 1);
+    }
+}
+
+/* تاجات الروابط */
+.link-tag,
+.github-tag {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-2px);
+    }
+}
+
+.link-tag {
+    background: #28a745 !important; // أخضر للزيارة
+    
+    &:hover {
+        background: #218838 !important;
+    }
+}
+
+.github-tag {
+    background: #24292e !important; // أسود GitHub
+    
+    &:hover {
+        background: #1a1e22 !important;
+    }
+}
+
+/* أزرار الروابط في المودال */
+.modal-project-links {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.project-link-btn,
+.github-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.project-link-btn {
+    background: #28a745;
+    color: white;
+    
+    &:hover {
+        background: #218838;
+    }
+}
+
+.github-link-btn {
+    background: #24292e;
+    color: white;
+    
+    &:hover {
+        background: #1a1e22;
+    }
+}
+
+/* Responsive لروابط المشروع */
+@media screen and (max-width: 700px) {
+    .project-links-overlay {
+        opacity: 1; // Always show on mobile
+    }
+    
+    .modal-project-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .project-link-btn,
+    .github-link-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
