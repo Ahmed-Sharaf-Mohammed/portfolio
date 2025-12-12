@@ -35,10 +35,7 @@
     "start": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "extractTranslations-dynamic": "node scripts/extractTranslations-dynamic.js",
-    "translate-all": "npm run extract-texts && node scripts/translate.js",
-    "dev": "npm run translate-all && react-scripts start",
-    "build": "npm run translate-all && react-scripts build"
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
