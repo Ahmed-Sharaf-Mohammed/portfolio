@@ -1,22 +1,27 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.51056ad5.css",
-    "main.js": "/portfolio/static/js/main.d27e54c5.js",
+    "main.css": "/portfolio/static/css/main.7cfb9ca0.css",
+    "main.js": "/portfolio/static/js/main.4b05552f.js",
     "static/js/453.c980083f.chunk.js": "/portfolio/static/js/453.c980083f.chunk.js",
+    "static/media/girljumb1.png": "/portfolio/static/media/girljumb1.4c5fa162d097745591b0.png",
+    "static/media/iraq1.png": "/portfolio/static/media/iraq1.4e8e2ddafdfe88eb908d.png",
     "static/media/bg-light.png": "/portfolio/static/media/bg-light.bac0efb485244a522981.png",
     "static/media/bg-dark.png": "/portfolio/static/media/bg-dark.f420c6b8458af72de935.png",
     "static/media/Joblance.png": "/portfolio/static/media/Joblance.d549a8d162b5edf24526.png",
     "static/media/Joblance1.png": "/portfolio/static/media/Joblance1.d549a8d162b5edf24526.png",
+    "static/media/iraq.png": "/portfolio/static/media/iraq.4e5a085bc1f32a6be6ad.png",
     "static/media/Joblance2.png": "/portfolio/static/media/Joblance2.6089d2fdb9cf6323d62e.png",
+    "static/media/tmirs.png": "/portfolio/static/media/tmirs.a47436a63b4d6b48ff66.png",
     "static/media/profile.jpg": "/portfolio/static/media/profile.c9cef3a86989f8fa854d.jpg",
+    "static/media/npuzzle.png": "/portfolio/static/media/npuzzle.ec38e124cbb32db866c4.png",
     "static/media/Joblance3.png": "/portfolio/static/media/Joblance3.3cb9248a5df9ab41d88d.png",
     "index.html": "/portfolio/index.html",
-    "main.51056ad5.css.map": "/portfolio/static/css/main.51056ad5.css.map",
-    "main.d27e54c5.js.map": "/portfolio/static/js/main.d27e54c5.js.map",
+    "main.7cfb9ca0.css.map": "/portfolio/static/css/main.7cfb9ca0.css.map",
+    "main.4b05552f.js.map": "/portfolio/static/js/main.4b05552f.js.map",
     "453.c980083f.chunk.js.map": "/portfolio/static/js/453.c980083f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.51056ad5.css",
-    "static/js/main.d27e54c5.js"
+    "static/css/main.7cfb9ca0.css",
+    "static/js/main.4b05552f.js"
   ]
 }
