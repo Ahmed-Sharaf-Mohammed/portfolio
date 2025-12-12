@@ -5,6 +5,9 @@ import { faBriefcase, faGraduationCap, faLaptopCode } from '@fortawesome/free-so
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import '../assets/styles/Timeline.scss'
+import { faRobot } from '@fortawesome/free-solid-svg-icons';
+import { faMicrochip } from '@fortawesome/free-solid-svg-icons';
+
 
 function Timeline() {
   return (
@@ -16,6 +19,19 @@ function Timeline() {
             className="vertical-timeline-element--work"
             contentStyle={{ background: 'white', color: 'rgb(39, 40, 34)' }}
             contentArrowStyle={{ borderRight: '7px solid  white' }}
+            date="Dec 2025 - Present"
+            iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
+            icon={<FontAwesomeIcon icon={faRobot} />}   
+          >
+            <h3 className="vertical-timeline-element-title">Machine Learning Engineer Trainee</h3>
+            <h4 className="vertical-timeline-element-subtitle">DEPI Scholarship (Training Provider: AMIT) · Cairo, Egypt</h4>
+            <p>
+              Developing machine learning and deep learning skills through the DEPI Microsoft-based AI track.
+              Training includes Python, data preprocessing, visualization, ML techniques, NLP, computer vision, Azure AI services, and MLOps tools.
+            </p>
+          </VerticalTimelineElement>
+          <VerticalTimelineElement
+            className="vertical-timeline-element--work"
             date="Jul 2025 - Present"
             iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}

@@ -4,7 +4,14 @@ import { faChevronLeft, faChevronRight, faTimes, faPause, faPlay, faExternalLink
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import '../assets/styles/Project.scss';
 
+
+
+
+
 // استيراد الصور
+import Iraq from '../assets/images/iraq.png';
+import Iraq1 from '../assets/images/iraq1.png';
+
 import joblance1 from '../assets/images/Joblance.png';
 import joblance2 from '../assets/images/Joblance1.png';
 import joblance3 from '../assets/images/Joblance2.png';
@@ -56,6 +63,16 @@ function Project() {
     const projects: ProjectType[] = [
         {
             id: 1,
+            title: "Iraq Business Intelligence & Market Analysis",
+            description: "This project delivers a comprehensive data analysis of over 400,000 business reviews and ratings across Iraq, transforming raw business data into strategic market insights.",
+            images: [Iraq1, Iraq],
+            technologies: ["Python", "Django", "SQL Server 2022", "Machine Learning", "scraping", "Power BI"],
+            details: "I led a comprehensive business intelligence project analyzing over 400,000 Iraqi business reviews and ratings to provide actionable insights for entrepreneurs, investors, and policymakers. The project involved data collection by scraping business information from Google Maps, followed by data cleaning and integration of 20+ Excel datasets into a centralized SQL Server database. Using Python and SQL, I performed advanced analysis to uncover market trends, sector performance, competitive landscapes, and customer satisfaction across 15+ governorates and 20+ business sectors. Insights were visualized through interactive dashboards in Power BI and Dash, highlighting geographic hotspots, underserved sectors, digital gaps, and high-growth opportunities. Additionally, a detailed Data Story report summarized findings and offered data-driven recommendations for market entry strategies, investment decisions, and operational improvements, effectively transforming raw business data into strategic intelligence for stakeholders.",
+            githubLink: "https://github.com/Ahmed-Sharaf-Mohammed/Iraq-google-maps-scraping-2024"
+        },
+
+        {
+            id: 2,
             title: "Job Lance - Career Platform",
             description: "An innovative career development platform with diverse job listings and user-friendly interface. Built as graduation project with Excellent grade (97/100).",
             images: [joblance1, joblance2, joblance3, joblance4],
@@ -66,7 +83,7 @@ function Project() {
             githubLink: "https://github.com/Ahmed-Sharaf-Mohammed/Joblance"
         },
         {
-            id: 2,
+            id: 3,
             title: "Girl Jump - 3D Game",
             description: "A Unity-based 3D game with female protagonist navigating dynamic environments. Developed with C# and Unity game engine.",
             images: [girljump1, girljump2],
@@ -77,7 +94,7 @@ function Project() {
 
         },
         {
-            id: 3,
+            id: 4,
             title: "TMIRS - Text Mining Toolkit",
             description: "Python-based system for processing textual data, performing tasks like tokenization and computing TF-IDF for information retrieval.",
             images: [tmirs1],
@@ -87,7 +104,7 @@ function Project() {
             githubLink: "https://github.com/Ahmed-Sharaf-Mohammed/Text-Mining-and-Information-Retrieval-System"
         },
         {
-            id: 4,
+            id: 5,
             title: "N-Puzzle Solver",
             description: "Python program for solving n-puzzle problems using Manhattan distance heuristic and advanced algorithms.",
             images: [npuzzle1],
@@ -98,7 +115,7 @@ function Project() {
 
         },
         {
-            id: 5,
+            id: 6,
             title: "E-Shop - Online Store",
             description: "Online clothing store built with PHP, featuring seamless shopping experience with shopping cart functionality.",
             images: [npuzzle1],
@@ -108,7 +125,7 @@ function Project() {
             githubLink: "https://github.com/Ahmed-Sharaf-Mohammed/PHP_Eshop"
         },
         {
-            id: 6,
+            id: 7,
             title: "Data Analysis Projects",
             description: "Collection of data analysis projects using Power BI, Alteryx, SSIS, and MS Project for data transformation, visualization, and modeling.",
             images: [npuzzle1],
