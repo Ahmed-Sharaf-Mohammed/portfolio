@@ -1,0 +1,39 @@
+{
+  "nav": {},
+  "hero": {},
+  "expertise": {},
+  "timeline": {},
+  "projects": {
+    "title": "Projets personnels",
+    "autoplay": "Lecture automatique",
+    "view_project": "Voir le projet",
+    "technologies": "Technologies",
+    "forEach": {
+      "title": "forEach - Projet",
+      "description": "Description pour chaque",
+      "details": "Informations détaillées sur le projet forEach"
+    },
+    "find": {
+      "title": "trouver - Projet",
+      "description": "Description de la recherche",
+      "details": "Informations détaillées sur le projet de recherche"
+    },
+    "map": {
+      "title": "carte - Projet",
+      "description": "Description de la carte",
+      "details": "Informations détaillées sur le projet de carte"
+    },
+    "joblance": {
+      "title": "Job Lance - Plateforme de carrière",
+      "description": "Une plateforme innovante de développement de carrière avec des offres d'emploi diversifiées et une interface conviviale.",
+      "details": "Job Lance est une plateforme de carrière complète qui met en relation les demandeurs d'emploi et les employeurs."
+    },
+    "girljump": {
+      "title": "Fille Saut - Jeu 3D",
+      "description": "Un jeu 3D basé sur Unity avec une protagoniste féminine naviguant dans des environnements dynamiques.",
+      "details": "Un jeu de plateforme 3D immersif mettant en vedette une protagoniste féminine."
+    }
+  },
+  "contact": {},
+  "footer": {}
+}

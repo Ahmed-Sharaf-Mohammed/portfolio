@@ -1,0 +1,39 @@
+{
+  "nav": {},
+  "hero": {},
+  "expertise": {},
+  "timeline": {},
+  "projects": {
+    "title": "Personal Projects",
+    "autoplay": "Autoplay",
+    "view_project": "View Project",
+    "technologies": "Technologies",
+    "forEach": {
+      "title": "forEach - Project",
+      "description": "Description for forEach",
+      "details": "Detailed information about forEach project"
+    },
+    "find": {
+      "title": "find - Project",
+      "description": "Description for find",
+      "details": "Detailed information about find project"
+    },
+    "map": {
+      "title": "map - Project",
+      "description": "Description for map",
+      "details": "Detailed information about map project"
+    },
+    "joblance": {
+      "title": "Job Lance - Career Platform",
+      "description": "An innovative career development platform with diverse job listings and user-friendly interface.",
+      "details": "Job Lance is a comprehensive career platform that connects job seekers with employers."
+    },
+    "girljump": {
+      "title": "Girl Jump - 3D Game",
+      "description": "A Unity-based 3D game with female protagonist navigating dynamic environments.",
+      "details": "An immersive 3D platformer game featuring a female protagonist."
+    }
+  },
+  "contact": {},
+  "footer": {}
+}
