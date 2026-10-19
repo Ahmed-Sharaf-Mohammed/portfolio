@@ -19,7 +19,7 @@ function Main() {
             <a href="https://www.linkedin.com/in/ahmed-sharaf-mohammed/" target="_blank" rel="noreferrer"><LinkedInIcon/></a>
           </div>
           <h1>Ahmed Sharaf</h1>
-          <p>Data Scientist</p>
+          <p>Data & ML Engineer (Python)</p>
 
           <div className="mobile_social_icons">
             <a href="https://github.com/ahmed-Sharaf-Mohammed/" target="_blank" rel="noreferrer"><GitHubIcon/></a>
